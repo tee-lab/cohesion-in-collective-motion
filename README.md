@@ -1,1 +1,1 @@
-# variable_speed_model
+# variable-speed-model
