@@ -8,7 +8,7 @@ This repository contains codes to generate data used for analysis in the article
 
 **Generate data of positions, velocities and networks to analyse group cohesion for given group size and parameters.**
 
-Use Matlab code (/figure_2/long_sim_data.m) to generate all the required data to analyse group cohesion for stochastic pairwise interactions. Positions, velocities of agents are stored in the .mat file named n_1_pw.mat. 
+Use Matlab code `/figure_2/long_sim_data.m` to generate all the required data to analyse group cohesion for stochastic pairwise interactions. Positions, velocities of agents are stored in the .mat file named n_1_pw.mat. 
 
 Variables are commented on in the code. To reproduce the results, it is advised to run for at least T = 1500 and the number of realisations (no_it) = 10. Interaction rates, neighbourhood range and all the parameters can be changed in long_sim_data.m
 
