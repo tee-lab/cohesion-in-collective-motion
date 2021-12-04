@@ -1,1 +1,1 @@
-# variable-speed-model
+# Cohesion-in-collective-motion
