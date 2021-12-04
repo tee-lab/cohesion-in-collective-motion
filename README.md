@@ -12,7 +12,7 @@ Variables are commented within the code. To reproduce the results, it is advised
 
 After running the simulation, use the data in `n_pw.mat` to calculate the cohesion parameter, average number of clusters and group polarisation. To do so, run the Matlab code `/figure_2/clus_ana_pw.m`. This file stores all the required data in the `cluster_ana_pw.mat` file. 
 
-The folder (figure_2) also contains `avg_connections.m`, which is used to construct a network at every time window tw (called `conn_time` in `long_sim_data_pw.m`). We also use code `DBSCAN.m`, written by S. Mostapha Kalami Heris, to quantify group cohesion. 
+The folder (`figure_2`) also contains `avg_connections.m`, which is used to construct a network at every time window tw (called `conn_time` in `long_sim_data_pw.m`). We also use code `DBSCAN.m`, written by S. Mostapha Kalami Heris, to quantify group cohesion. 
 
 Finally, run the code `plot_fig_2_3.m` to get figures 2A, B (and inset) of the main text.
 
