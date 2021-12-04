@@ -32,5 +32,5 @@ After saving the required data, use the data in `n_at.mat` to calculate the cohe
 
 Finally, run the code `plot_fig_4.m` to get figure 4 of the main text.
 
-**Note:** You need to run `long_sim_data_pw.m` and `clus_ana_pw.m` files in folder figure 2 for the same N (group size) and K values to generate figure 4. As you have to change folders in the file to access data from folder `figure_2`, please ensure the path is correct in `line 15` and `line 37`. 
+**Note:** You need to run `long_sim_data_pw.m` and `clus_ana_pw.m` files in folder figure 2 for the same N (group size) and K values to generate figure 4. As you have to change folders in the file to access data from folder `figure_2`, please ensure that you have entered the correct path in `line 15` and `line 37`. 
 
