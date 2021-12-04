@@ -2,8 +2,6 @@
 
 This repository contains codes to generate data used for analysis in the article, “Randomness in the choice of neighbours promotes cohesion in mobile animal groups”.
 
-***
-
 ## Codes for Figures 2 and 3
 
 **Generate data of positions, velocities and networks to analyse group cohesion for given group size and parameters.**
