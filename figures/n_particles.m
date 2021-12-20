@@ -271,10 +271,7 @@ for t = 2:n_iter
             vec_r_2 = [(dis_vec(z,2)), -dis_vec(z,1)]; % Vector-2 perpendiculat to rij
             vec_r_2 = vec_r_2 ./ (sqrt(vec_r_2(:,1).^2 + vec_r_2(:,2).^2)+eps);
             
-            % Here I should only use theta and write this. Else there can
-            % be problem
-%             v_norm = [cos(theta(i)) sin(theta(i))];
-            v_norm = vel(i,:)/norm(vel(i,:));
+            v_norm = [cos(theta(i)) sin(theta(i))]; % Heading direction
             
             % Find the perpendicular vector with lesser angular distance. 
             theta_r_1_c = acos(dot(repmat(v_norm, z1, 1), vec_r_1, 2));
