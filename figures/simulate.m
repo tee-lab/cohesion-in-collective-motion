@@ -5,7 +5,7 @@ close all;
 tic;
 
 % Load data
-load('n_at.mat', 'pos_t', 'theta_t', 'vel_t', 'rad_rep', 'zor', 'dt', 'n');
+load('n_pw.mat', 'pos_t', 'theta_t', 'vel_t', 'rad_rep', 'zor', 'dt', 'n');
 l = 2; % iteration 
 m = 1; % K
 st_time = 100; % start time
@@ -23,7 +23,7 @@ vel_t = vel_t(:,:,st_time:end);
 
 run_time = length(vel_t);
 
-for i = 1:20:run_time
+for i = 1:40:run_time
     vel_x = vel_t(:,1,i);
     vel_y = vel_t(:,2,i);
     pos_x = pos_t(:,1,i);

@@ -13,7 +13,7 @@ m=ceil(sqrt(n));
 pos(:,1)=(rem((1:n)-1,m))*(zor*0.6); % x coordinates 
 pos(:,2)= floor(((1:n)-1)/m)*(zor*0.6); % y coordinates
 theta = 2*pi*rand(1) + (sight/2)*(pi/180)*randn(n,1); % Distribution of heading angles around a 
-% randomly chosen angle 
+% randomly chosen angle
 
 % Checking if all the heading angles are between [0-2pi] 
 for j=1:n
@@ -44,6 +44,13 @@ s_d = zeros(n,1); % Desired chanege in speed
 theta_d = theta; % Desired heading angle 
 
 sk_t = 0.1/dt; % Store data after sk_t time steps
+
+% position, velocity, speed and direction at time t-1
+
+pos_t_1 = pos;
+vel_t_1 = vel;
+v_t_1 = v;
+theta_t_1 = theta;
 
 pos_t = zeros(n, 2, ceil(n_iter/sk_t)); % Stores positions of agents over the simulation
 theta_t = zeros(n, ceil(n_iter/sk_t)); % Stores heading angles of agents over the simulation
@@ -135,7 +142,7 @@ for t = 2:n_iter
             te_atr(i) = (1/r_atr) * log(1/rand());
         end
         
-        dis_vec = pos - repmat(pos(i,:), size(pos,1), 1); % rij vector (as defined in the main text)
+        dis_vec = pos_t_1 - repmat(pos_t_1(i,:), size(pos_t_1,1), 1); % rij vector (as defined in the main text)
         mag_vec = sqrt(dis_vec(:,1).^2 + dis_vec(:,2).^2); % magnitude of rij
         mag_vec_r = sqrt(dis_vec(:,1).^2 + dis_vec(:,2).^2) - 2 * rad_rep; %magnitude of rij minus space oppucied by agents
         
@@ -155,7 +162,7 @@ for t = 2:n_iter
             % Chose a random angle from truncated normal dist 
             delta = random(trunc_dis_ang);
             
-            theta_d_s = theta(i) + delta; % Desired direction due to spontaneous rotation
+            theta_d_s = theta_t_1(i) + delta; % Desired direction due to spontaneous rotation
 
             % Ensure that the angles are with [0, 2pi]
             if theta_d_s >= 2*pi
@@ -169,7 +176,7 @@ for t = 2:n_iter
             % ALIGNMENT 
             
             % Check if the neighbors are in the visual zone
-            dth_mag = (vel(i,1) * dis_vec(:,1) + vel(i,2) * dis_vec(:,2))./(mag_vec*v(i)+eps); 
+            dth_mag = (vel_t_1(i,1) * dis_vec(:,1) + vel_t_1(i,2) * dis_vec(:,2))./(mag_vec*v_t_1(i)+eps); 
                       
             th_jk = acosd(dth_mag); 
             th_jk(i)=1e3; % Not considering the focal individual for the interaction
@@ -184,8 +191,8 @@ for t = 2:n_iter
             
             if isempty(n_array)==0 % If there are neighbors in visual field to interact with
                 neighbours_kalg=neighbours_alg(randperm(K_alg_st, min(k_alg, K_alg_st))); %Picking a random neighbor to align
-                s_d_a = mean(v(neighbours_kalg,1),1) - v0; % Desired change in speed due to alignment interaction
-                d_align_t = mean([cos(theta(neighbours_kalg,1)) sin(theta(neighbours_kalg,1))],1); % Desired direction
+                s_d_a = mean(v_t_1(neighbours_kalg,1),1) - v0; % Desired change in speed due to alignment interaction
+                d_align_t = mean([cos(theta_t_1(neighbours_kalg,1)) sin(theta_t_1(neighbours_kalg,1))],1); % Desired direction
                 theta_d_a = atan2(d_align_t(1,2),d_align_t(1,1)); % Desired direction
             else % Else continue to move towards the desired direction and speed from previous time
                 theta_d_a=theta_d(i);
@@ -212,7 +219,7 @@ for t = 2:n_iter
                 s_d_attr = min(attr_c * (mean(((mag_vec(neighbours_katr,1) - 2 *rad_rep)/latr).^gamma,1)), vmax-v0);
                 % Desired direction
                 d_atr_t = mean([attr_c *(((mag_vec(neighbours_katr,1) - 2 *rad_rep)/latr).^gamma)...
-                    .*dis_vec(neighbours_katr,:)./(norm(dis_vec(neighbours_katr,:))+eps) ; [cos(theta(i)) sin(theta(i))]],1);
+                    .*dis_vec(neighbours_katr,:)./(norm(dis_vec(neighbours_katr,:))+eps) ; [cos(theta_t_1(i)) sin(theta_t_1(i))]],1);
                 theta_d_atr = atan2(d_atr_t(1,2),d_atr_t(1,1));
 
                 %  If attraction interaction has happened and time is
@@ -244,11 +251,11 @@ for t = 2:n_iter
         
         % Check if the distance between agents is decreasing (Refer main
         % text for details).
-        fapp = max((dot(repmat(vel(i,:), size(vel,1), 1) ,dis_vec, 2) ...
-            + dot(vel, -dis_vec, 2)), zeros(size(pos,1),1)); 
+        fapp = max((dot(repmat(vel_t_1(i,:), size(vel_t_1,1), 1) ,dis_vec, 2) ...
+            + dot(vel_t_1, -dis_vec, 2)), zeros(size(pos_t_1,1),1)); 
         
         % Check if the focal individual is moving towards the neighbor
-        dth_mag = (vel(i,1) * dis_vec(:,1) + vel(i,2) * dis_vec(:,2))./(mag_vec*v(i)+eps);
+        dth_mag = (vel_t_1(i,1) * dis_vec(:,1) + vel_t_1(i,2) * dis_vec(:,2))./(mag_vec*v_t_1(i)+eps);
         dth_mag(i) = -1; % This check if two are approaching each other
         
         % Select only those agents which are within colision zone and the
@@ -271,7 +278,7 @@ for t = 2:n_iter
             vec_r_2 = [(dis_vec(z,2)), -dis_vec(z,1)]; % Vector-2 perpendiculat to rij
             vec_r_2 = vec_r_2 ./ (sqrt(vec_r_2(:,1).^2 + vec_r_2(:,2).^2)+eps);
             
-            v_norm = [cos(theta(i)) sin(theta(i))]; % Heading direction to find the nearest perpendicular
+            v_norm = [cos(theta_t_1(i)) sin(theta_t_1(i))]; % Heading direction to find the nearest perpendicular
             
             % Find the perpendicular vector with lesser angular distance. 
             theta_r_1_c = acos(dot(repmat(v_norm, z1, 1), vec_r_1, 2));
@@ -303,7 +310,7 @@ for t = 2:n_iter
         
         % Calculated speed due to all interactions
         v(i) = v(i) * (1 - (dt/tau)) + s_d(i) * dt/tau + v0 * dt/tau; % Calculated speed due to all interactions
-        
+
         % Ensuring that the speeds are within [0 Smax]
         if v(i) < 0
             v(i) = 0;
@@ -361,6 +368,11 @@ for t = 2:n_iter
         pos(i,:) = pos(i,:) + vel(i,:)*dt; % Update position
         
     end
+
+    theta_t_1 = theta;
+    vel_t_1 = vel;
+    v_t_1 = v;
+    pos_t_1 = pos;
     
     % Store data after sk_t time steps
     if rem(t,sk_t) == 0
