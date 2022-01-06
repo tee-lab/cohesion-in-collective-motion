@@ -10,13 +10,13 @@ load('n_pw.mat'); % Load the file that has all the simulation data
 
 n_iter = round((Time - st_t)/0.1); % No.of data points in a simulation after removing data till st_t
 srt_p = st_t/0.1;
+epsilon = 2.0;
 
 no_K = numel(K); % Length of K values explored
 
 % As defined in long_sim_data.m
-theta_t = theta_t(:, srt_p+1:end,:,:,:);
-pos_t = pos_t(:,:,srt_p+1:end,:,:,:);
-vel_t = vel_t(:,:,srt_p+1:end,:,:,:);
+theta_t = theta_t(:,srt_p+1:end,:,:);
+pos_t = pos_t(:,:,srt_p+1:end,:,:);
 
 %% Cluster Analysis
 
@@ -38,7 +38,7 @@ for i = 1:no_K % Run over all K's
             x = pos_temp(:,1,j); % x coordinates of all agents
             y = pos_temp(:,2,j); % y coordinates of all agents
 
-            ids = DBSCAN([x y], 2*zor, 1); % IDs of clusters. Refer main text for the definition of a cluster
+            ids = DBSCAN([x y], epsilon, 1); % IDs of clusters. Refer main text for the definition of a cluster
             num_clus(j,k,i) = max(ids); % No.of clusters formed
             size_large_clus = 0; % Size of the largest cluster
             avg_clus_size_temp = 0; % Average size of the cluster

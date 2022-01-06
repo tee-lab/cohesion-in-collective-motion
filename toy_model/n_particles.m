@@ -3,7 +3,7 @@
 % Written by Vivek J and Danny Raj M
 
 function [t_t, theta_t, pos_t, conncomp_size_t, avg_uni_neigh_t] = n_particles(n, r_spon, ...
-    r_align, r_atr, dt, n_iter, sigma_t, K_alg, k_alg, K_atr, k_atr, ...
+    r_align, r_atr, dt, n_iter, sigma_t, omega, K_alg, k_alg, K_atr, k_atr, ...
     S0, conn_time, st_t)
  
 % INITIAL CONDITIONS - Putting agents in a lattice with orientation around
@@ -204,8 +204,6 @@ for t = 2:n_iter
             end
             
         end
-        
-        omega = pi/3;
 
         % Turn towards the side with shortest angular distance. 
         if theta(i) < theta_d(i)
