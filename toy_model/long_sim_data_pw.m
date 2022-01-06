@@ -1,4 +1,4 @@
- clear
+clear
 close all
 clc
 
@@ -6,8 +6,8 @@ clc
 
 tic;
 
-n = 10; % NUMBER OF FISH
-K = [3]; % Values of K to be explored
+n = 20; % NUMBER OF FISH
+K = [9]; % Values of K to be explored
 no_K = numel(K);
 no_it = 2; % No.of realisations
 
@@ -17,7 +17,7 @@ S0=0.2; % Cruise speed
 latr = 1;
 gamma = 3;
 
-Time = 1500; % Simulation time
+Time = 1000; % Simulation time
 dt = 0.05; % Integration time
 n_iter = ceil(Time/dt); 
 theta_tau = 0.5; % Relaxation time for angular speed
@@ -38,7 +38,7 @@ for i = 1:no_K
     parfor j = 1:no_it
 
         [t_t, theta_t, pos_t, conncomp_size_t, avg_uni_neigh_t] = n_particles(n, r_spon, ...
-            r_align, r_atr, dt, n_iter, latr, gamma, sigma_t, K_alg, k_alg, K_atr, k_atr, ...
+            r_align, r_atr, dt, n_iter, sigma_t, K_alg, k_alg, K_atr, k_atr, ...
             S0, conn_time, st_t)
         
         pos(:,:,:,j,i) = pos_t; % Position vector

@@ -3,7 +3,7 @@
 % Written by Vivek J and Danny Raj M
 
 function [t_t, theta_t, pos_t, conncomp_size_t, avg_uni_neigh_t] = n_particles(n, r_spon, ...
-    r_align, r_atr, dt, n_iter, latr, gamma, sigma_t, K_alg, k_alg, K_atr, k_atr, ...
+    r_align, r_atr, dt, n_iter, sigma_t, K_alg, k_alg, K_atr, k_atr, ...
     S0, conn_time, st_t)
  
 % INITIAL CONDITIONS - Putting agents in a lattice with orientation around
@@ -180,9 +180,9 @@ for t = 2:n_iter
             %Picking a random neighbor to attract
             neighbours_katr = s_ind_atr(randperm(K_atr, k_atr));
             % Desired direction
-            d_atr_t = mean([(((mag_vec(neighbours_katr,1))/latr).^gamma)...
-                    .*dis_vec(neighbours_katr,:)./(norm(dis_vec(neighbours_katr,:))+eps) ; [cos(theta_t_1(i)) sin(theta_t_1(i))]],1);
-%             d_atr_t = dis_vec(neighbours_katr,:)./(norm(dis_vec(neighbours_katr,:))+eps);
+%             d_atr_t = mean([(((mag_vec(neighbours_katr,1))/latr).^gamma)...
+%                     .*dis_vec(neighbours_katr,:)./(norm(dis_vec(neighbours_katr,:))+eps) ; [cos(theta_t_1(i)) sin(theta_t_1(i))]],1);
+            d_atr_t = dis_vec(neighbours_katr,:)./(norm(dis_vec(neighbours_katr,:))+eps);
             theta_d_atr = atan2(d_atr_t(1,2),d_atr_t(1,1));
 
             %  If attraction interaction has happened and time is
@@ -204,15 +204,6 @@ for t = 2:n_iter
             end
             
         end
-        
-        % Turning rate depends on the difference between the current direction & desired direction
-%         omega = abs(theta_d(i) - theta(i)); 
-%         
-%         % Selecting the smallest angle to turn towards
-%         if omega > pi
-%             omega = 2*pi - omega;
-%         end
-%         omega = omega/theta_tau;
         
         omega = pi/3;
 
