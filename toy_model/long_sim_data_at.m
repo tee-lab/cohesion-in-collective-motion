@@ -14,6 +14,8 @@ no_it = 2; % No.of realisations
 sigma_t = pi;
 S0=0.2; % Cruise speed 
 
+latr = 1;
+
 Time = 1500; % Simulation time
 dt = 0.05; % Integration time
 n_iter = ceil(Time/dt); 
@@ -35,7 +37,7 @@ for i = 1:no_K
     parfor j = 1:no_it
 
         [t_t, theta_t, pos_t, conncomp_size_t, avg_uni_neigh_t] = n_particles(n, r_spon, ...
-            r_align, r_atr, dt, n_iter, theta_tau, sigma_t, K_alg, k_alg, K_atr, k_atr, ...
+            r_align, r_atr, dt, n_iter, latr, sigma_t, K_alg, k_alg, K_atr, k_atr, ...
             S0, conn_time, st_t)
         
         pos(:,:,:,j,i) = pos_t; % Position vector

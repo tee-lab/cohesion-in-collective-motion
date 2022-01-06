@@ -7,12 +7,15 @@ clc
 tic;
 
 n = 10; % NUMBER OF FISH
-K = [4]; % Values of K to be explored
+K = [3]; % Values of K to be explored
 no_K = numel(K);
 no_it = 2; % No.of realisations
 
 sigma_t = pi;
-S0=0.2; % Cruise speed 
+S0=0.2; % Cruise speed
+
+latr = 1;
+gamma = 3;
 
 Time = 1500; % Simulation time
 dt = 0.05; % Integration time
@@ -24,7 +27,7 @@ st_t = 10; % Starting time to ignore to remove the effect of initial conditions
 for i = 1:no_K
     
     r_spon = 1.0; % Spontaneous interaction rate
-    r_align = 2.5; % Rate of alignment
+    r_align = 1.5; % Rate of alignment
     K_alg = K(i); % K as defined in the main text 
     k_alg = 1; % k as defined in the main text
     r_atr = 1; % Rate of attraction 
@@ -35,7 +38,7 @@ for i = 1:no_K
     parfor j = 1:no_it
 
         [t_t, theta_t, pos_t, conncomp_size_t, avg_uni_neigh_t] = n_particles(n, r_spon, ...
-            r_align, r_atr, dt, n_iter, theta_tau, sigma_t, K_alg, k_alg, K_atr, k_atr, ...
+            r_align, r_atr, dt, n_iter, latr, gamma, sigma_t, K_alg, k_alg, K_atr, k_atr, ...
             S0, conn_time, st_t)
         
         pos(:,:,:,j,i) = pos_t; % Position vector
