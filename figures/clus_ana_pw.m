@@ -14,9 +14,9 @@ srt_p = st_t/0.1;
 no_K = numel(K); % Length of K values explored
 
 % As defined in long_sim_data.m
-theta_t = theta_t(:, srt_p+1:end,:,:,:);
-pos_t = pos_t(:,:,srt_p+1:end,:,:,:);
-vel_t = vel_t(:,:,srt_p+1:end,:,:,:);
+theta_t = theta_t(:,srt_p+1:end,:,:);
+pos_t = pos_t(:,:,srt_p+1:end,:,:);
+vel_t = vel_t(:,:,srt_p+1:end,:,:);
 
 %% Cluster Analysis
 
