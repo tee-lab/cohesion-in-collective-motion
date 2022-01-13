@@ -3,7 +3,7 @@
 % Written by Vivek J and Danny Raj M
 
 function [t_t, theta_t, pos_t, conncomp_size_t, avg_uni_neigh_t] = n_particles(n, r_spon, ...
-    r_align, r_atr, dt, n_iter, sigma_t, omega, K_alg, k_alg, K_atr, k_atr, ...
+    r_align, r_atr, dt, n_iter, sigma_t, omega, sight, K_alg, k_alg, K_atr, k_atr, ...
     S0, conn_time, st_t)
  
 % INITIAL CONDITIONS - Putting agents in a lattice with orientation around
@@ -44,6 +44,7 @@ sk_t = 0.1/dt; % Store data after sk_t time steps
 
 pos_t_1 = pos;
 theta_t_1 = theta;
+vel_t_1 = vel;
 
 pos_t = zeros(n, 2, ceil(n_iter/sk_t)); % Stores positions of agents over the simulation
 theta_t = zeros(n, ceil(n_iter/sk_t)); % Stores heading angles of agents over the simulation
@@ -135,7 +136,7 @@ for t = 2:n_iter
         
         dis_vec = pos_t_1 - repmat(pos_t_1(i,:), size(pos_t_1,1), 1); % rij vector (as defined in the main text)
         mag_vec = sqrt(dis_vec(:,1).^2 + dis_vec(:,2).^2); % magnitude of rij
-        mag_vec(i) = Inf;
+%         mag_vec(i) = Inf;
         
         % Check if any event is happening in this time interval
 
@@ -163,35 +164,60 @@ for t = 2:n_iter
             
             % ALIGNMENT 
             
-            % sorting agents in the ascending order of their
+            % Check if the neighbors are in the visual zone
+            dth_mag = (vel_t_1(i,1) * dis_vec(:,1) + vel_t_1(i,2) * dis_vec(:,2))./(mag_vec*v0+eps); 
+                      
+            th_jk = acosd(dth_mag); 
+            th_jk(i)=1e3; % Not considering the focal individual for the interaction
+            n_array = find(th_jk<sight/2);
+            
+            % sorting those in visual zone in the ascending order of their
             % distance from focal individual
-            [~, s_ind_st] = sort(mag_vec, 'ascend');
+            [~, s_ind_st] = sort(mag_vec(n_array), 'ascend');
+            % Take the minimum of K (as defined in the main text) and agents in the visual field
+            K_alg_st = min(K_alg, numel(s_ind_st));
+            neighbours_alg = n_array(s_ind_st(1:K_alg_st));
 
-            neighbours_kalg=s_ind_st(randperm(K_alg, k_alg)); %Picking a random neighbor to align
-            d_align_t = mean([cos(theta_t_1(neighbours_kalg,1)) sin(theta_t_1(neighbours_kalg,1))],1); % Desired direction
-            theta_d_a = atan2(d_align_t(1,2),d_align_t(1,1)); % Desired direction
+            if isempty(n_array)==0 % If there are neighbors in visual field to interact with
+                neighbours_kalg=neighbours_alg(randperm(K_alg_st, min(k_alg, K_alg_st))); %Picking a random neighbor to align
+                d_align_t = mean([cos(theta_t_1(neighbours_kalg,1)) sin(theta_t_1(neighbours_kalg,1))],1); % Desired direction
+                theta_d_a = atan2(d_align_t(1,2),d_align_t(1,1)); % Desired direction
+            else % Else continue to move towards the desired direction and speed from previous time
+                theta_d_a=theta_d(i);
+            end
             
             % ATTRACTION
 
-            % sorting agents in the ascending order of their
+            % Check if the neighbors are in the visual zone
+            th_at = abs(acosd(dth_mag)); th_at(i)=1e3;
+            n_array_atr = find(th_at<sight/2);
+            
+            % sorting those in visual zone in the ascending order of their
             % distance from focal individual
-            [~, s_ind_atr] = sort(mag_vec, 'ascend');
+            [~, s_ind_atr] = sort(mag_vec(n_array_atr), 'ascend');
+            % Take the minimum of K (as defined in the main text) and agents in the visual field
+            K_atr_st = min(K_atr, numel(s_ind_atr));
+            neighbours_atr = n_array_atr(s_ind_atr(1:K_atr_st));
 
-            %Picking a random neighbor to attract
-            neighbours_katr = s_ind_atr(randperm(K_atr, k_atr));
-            % Desired direction
-%             d_atr_t = mean([(((mag_vec(neighbours_katr,1))/latr).^gamma)...
-%                     .*dis_vec(neighbours_katr,:)./(norm(dis_vec(neighbours_katr,:))+eps) ; [cos(theta_t_1(i)) sin(theta_t_1(i))]],1);
-            d_atr_t = dis_vec(neighbours_katr,:)./(norm(dis_vec(neighbours_katr,:))+eps);
-            theta_d_atr = atan2(d_atr_t(1,2),d_atr_t(1,1));
+            if isempty(n_array_atr)==0
+                %Picking a random neighbor to align
+                neighbours_katr = neighbours_atr(randperm(K_atr_st, min(k_atr, K_atr_st)));
+                % Desired direction
+                %             d_atr_t = mean([(((mag_vec(neighbours_katr,1))/latr).^gamma)...
+                %                     .*dis_vec(neighbours_katr,:)./(norm(dis_vec(neighbours_katr,:))+eps) ; [cos(theta_t_1(i)) sin(theta_t_1(i))]],1);
+                d_atr_t = dis_vec(neighbours_katr,:)./(mag_vec(neighbours_katr,1)+eps);
+                theta_d_atr = atan2(d_atr_t(1,2),d_atr_t(1,1));
 
-            %  If attraction interaction has happened and time is
-            %  greater than st_t then record which agent interacts with
-            %  which agent
-            if e_atr == 1 && dt*t > st_t
-                nc = ones(1,length(neighbours_katr));
-                agents_1 = [agents_1, i*nc];
-                connect_agents_1 = [connect_agents_1, neighbours_katr.'];
+                %  If attraction interaction has happened and time is
+                %  greater than st_t then record which agent interacts with
+                %  which agent
+                if e_atr == 1 && dt*t > st_t
+                    nc = ones(1,length(neighbours_katr));
+                    agents_1 = [agents_1, i*nc];
+                    connect_agents_1 = [connect_agents_1, neighbours_katr.'];
+                end
+            else
+                theta_d_atr=theta_d(i);
             end
             
             % Take the average of all the interactions that happended in
@@ -248,6 +274,7 @@ for t = 2:n_iter
 
     theta_t_1 = theta;
     pos_t_1 = pos;
+    vel_t_1 = vel;
     
     % Store data after sk_t time steps
     if rem(t,sk_t) == 0
