@@ -235,7 +235,7 @@ for t = 2:n_iter
                 %  If attraction interaction has happened and time is
                 %  greater than st_t then record which agent interacts with
                 %  which agent
-                if e_atr == 1 && dt*t > st_t
+                if e_int == 1 && dt*t > st_t
                     nc = ones(1,length(neighbours_katr));
                     agents_1 = [agents_1, i*nc];
                     connect_agents_1 = [connect_agents_1, neighbours_katr.'];

@@ -6,7 +6,7 @@ tic;
 
 % Load data
 load('n_pw.mat', 'pos_t', 'theta_t', 'dt', 'n');
-l = 1; % iteration 
+l = 2; % iteration 
 m = 1; % K
 st_time = 100; % start time
 

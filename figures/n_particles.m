@@ -219,7 +219,7 @@ for t = 2:n_iter
                 s_d_attr = min(attr_c * (mean(((mag_vec(neighbours_katr,1) - 2 *rad_rep)/latr).^gamma,1)), vmax-v0);
                 % Desired direction
                 d_atr_t = mean([attr_c *(((mag_vec(neighbours_katr,1) - 2 *rad_rep)/latr).^gamma)...
-                    .*dis_vec(neighbours_katr,:)./(norm(dis_vec(neighbours_katr,:))+eps) ; [cos(theta_t_1(i)) sin(theta_t_1(i))]],1);
+                    .*dis_vec(neighbours_katr,:)./(mag_vec(neighbours_katr,1)+eps) ; [cos(theta_t_1(i)) sin(theta_t_1(i))]],1);
                 theta_d_atr = atan2(d_atr_t(1,2),d_atr_t(1,1));
 
                 %  If attraction interaction has happened and time is

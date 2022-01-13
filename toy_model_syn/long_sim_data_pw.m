@@ -14,7 +14,7 @@ no_it = 2; % No.of realisations
 sigma_t = pi;
 omega = pi/2; % angular speed
 S0=0.2; % Cruise speed
-sight = 270; % Visual angle in degrees
+sight = 360; % Visual angle in degrees
 
 latr = 1;
 gamma = 3;
@@ -23,7 +23,7 @@ Time = 1000; % Simulation time
 dt = 0.05; % Integration time
 n_iter = ceil(Time/dt); 
 theta_tau = 0.5; % Relaxation time for angular speed
-st_t = 1000; % Starting time to ignore to remove the effect of initial conditions
+st_t = 500; % Starting time to ignore to remove the effect of initial conditions
 
 
 for i = 1:no_K
