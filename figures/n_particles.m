@@ -384,7 +384,9 @@ for t = 2:n_iter
     
 end
 
-% Mean size of largest network cluster for given conn_time
+% Mean size of largest network cluster for given conn_time by considering
+% datas only after st_t
 conncomp_size_t = mean(conncomp_size_1(ceil(st_t/(conn_time))+1:end));
-% Mean no.of unique near neighbours for given conn_time
+% Mean no.of unique near neighbours for given conn_time by considering
+% datas only after st_t
 avg_uni_neigh_t = mean(avg_uni_neigh_1(ceil(st_t/(conn_time))+1:end));
