@@ -1,4 +1,4 @@
-% Date: 26-10-2021
+% Date: 14-1-2022
 % Edited code with comments
 % Written by Vivek J and Danny Raj M
 
@@ -38,7 +38,7 @@ vel = [v0*cos(theta), v0*sin(theta)];
 d_t = vel; % Desired heading direction 
 theta_d = theta; % Desired heading angle 
 
-sk_t = 0.1/dt; % Store data after sk_t time steps
+sk_t = ceil(0.1/dt); % Store data after sk_t time steps
 
 % position, velocity, speed and direction at time t-1
 
@@ -46,10 +46,10 @@ pos_t_1 = pos;
 theta_t_1 = theta;
 vel_t_1 = vel;
 
-pos_t = zeros(n, 2, ceil(n_iter/sk_t)); % Stores positions of agents over the simulation
-theta_t = zeros(n, ceil(n_iter/sk_t)); % Stores heading angles of agents over the simulation
+pos_t = zeros(n, 2, floor(n_iter/sk_t)); % Stores positions of agents over the simulation
+theta_t = zeros(n, floor(n_iter/sk_t)); % Stores heading angles of agents over the simulation
 
-t_t = 0.1:0.1:n_iter*dt; % Time points at which data is stored 
+t_t = (sk_t*dt):(sk_t*dt):n_iter*dt; % Time points at which data is stored  
 
 % Reaction rates
 te_int = (1/r_int) * log(1/rand()); % time at which interaction happens
@@ -82,9 +82,9 @@ for t = 2:n_iter
         disp(t*dt)
     end
     
-    % Constructs networks over conn_time time interval only time elapsed is
+    % Constructs networks over conn_time time interval only if time elapsed is
     % greater than st_t (to account for initial conditions)
-    if rem(t,round(conn_time*(1/dt))) == 0 
+    if rem(t,floor(conn_time*(1/dt))) == 0 
         
         con_graph = avg_connections(agents_1, connect_agents_1, n);
 %         ids = dbscan(pos, 2*zor, 1);
@@ -93,11 +93,11 @@ for t = 2:n_iter
         agents_1 = [];
         [~, clussize] = conncomp(con_graph);
         if isempty(clussize) == 0
-            conncomp_size_1((t/(conn_time*(1/dt))),1) = max(clussize);
-            avg_uni_neigh_1((t/(conn_time*(1/dt))),1) = mean(outdegree(con_graph));
+            conncomp_size_1((t/floor(conn_time*(1/dt))),1) = max(clussize);
+            avg_uni_neigh_1((t/floor(conn_time*(1/dt))),1) = mean(outdegree(con_graph));
         end
 
-        figure(1)
+%         figure(1)
         
 %         plot(con_graph, 'XData', pos(:,1), 'YData', pos(:,2))
 %         hold all
@@ -235,7 +235,7 @@ for t = 2:n_iter
                 %  If attraction interaction has happened and time is
                 %  greater than st_t then record which agent interacts with
                 %  which agent
-                if e_int == 1 && dt*t > st_t
+                if e_int == 1 && floor(dt*t) > st_t
                     nc = ones(1,length(neighbours_katr));
                     agents_1 = [agents_1, i*nc];
                     connect_agents_1 = [connect_agents_1, neighbours_katr.'];
@@ -308,7 +308,9 @@ for t = 2:n_iter
 
 end
 
-% Mean size of largest network cluster for given conn_time
-conncomp_size_t = mean(conncomp_size_1(floor(st_t/(conn_time))+1:end));
-% Mean no.of unique near neighbours for given conn_time
-avg_uni_neigh_t = mean(avg_uni_neigh_1(floor(st_t/(conn_time))+1:end));
+% Mean size of largest network cluster for given conn_time by considering
+% datas only after st_t
+conncomp_size_t = mean(conncomp_size_1(ceil(st_t/(conn_time))+1:end));
+% Mean no.of unique near neighbours for given conn_time by considering
+% datas only after st_t
+avg_uni_neigh_t = mean(avg_uni_neigh_1(ceil(st_t/(conn_time))+1:end));

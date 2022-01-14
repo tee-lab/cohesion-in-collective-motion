@@ -20,10 +20,10 @@ latr = 1;
 gamma = 3;
 
 Time = 1000; % Simulation time
-dt = 0.05; % Integration time
-n_iter = ceil(Time/dt); 
+dt = 0.07; % Integration time
+n_iter = floor(Time/dt); 
 theta_tau = 0.5; % Relaxation time for angular speed
-st_t = 500; % Starting time to ignore to remove the effect of initial conditions
+st_t = 50; % Starting time to ignore to remove the effect of initial conditions
 
 
 for i = 1:no_K
@@ -33,8 +33,8 @@ for i = 1:no_K
     k_alg = 1; % k as defined in the main text 
     K_atr = K(i); % K as defined in the main text
     k_atr = 1; % k as defined in the main text
-    conn_time = 10; % t_{w} as defined in the main text
-
+%     conn_time = 10; % t_{w} as defined in the main text
+    conn_time = 8;
     parfor j = 1:no_it
 
         [t_t, theta_t, pos_t, conncomp_size_t, avg_uni_neigh_t] = n_particles(n, r_int, ...

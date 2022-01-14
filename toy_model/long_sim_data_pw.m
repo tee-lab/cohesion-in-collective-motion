@@ -21,7 +21,7 @@ gamma = 3;
 
 Time = 1000; % Simulation time
 dt = 0.05; % Integration time
-n_iter = ceil(Time/dt); 
+n_iter = floor(Time/dt); 
 theta_tau = 0.5; % Relaxation time for angular speed
 st_t = 1000; % Starting time to ignore to remove the effect of initial conditions
 
