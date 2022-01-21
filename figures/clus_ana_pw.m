@@ -8,7 +8,7 @@ tic;
 
 load('n_pw.mat'); % Load the file that has all the simulation data
 
-srt_p = ceil(st_t/(ceil(0.1/dt) * dt));
+srt_p = ceil(st_t/(ceil(0.1/dt) * dt)); % Considering datas after st_t time
 
 no_K = numel(K); % Length of K values explored
 
