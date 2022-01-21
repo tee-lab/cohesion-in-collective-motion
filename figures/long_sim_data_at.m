@@ -26,7 +26,7 @@ Smax=5*0.2; % Maximum speed an agent can travel at.
 
 Time = 500; % Simulation time
 dt = 0.05; % Integration time
-n_iter = ceil(Time/dt); 
+n_iter = floor(Time/dt); 
 tau = 0.2; % Relaxation time for speed
 theta_tau = 0.5; % Relaxation time for angular speed
 st_t = 10; % Starting time to ignore to remove the effect of initial conditions

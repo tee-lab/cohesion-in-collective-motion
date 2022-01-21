@@ -6,8 +6,8 @@ clc
 
 tic;
 
-n = 10; % NUMBER OF FISH
-K = [3]; % Values of K to be explored
+n = 15; % NUMBER OF FISH
+K = [5]; % Values of K to be explored
 no_K = numel(K);
 no_it = 2; % No.of realisations
 
@@ -25,7 +25,7 @@ gamma = 3; latr=zor/2;
 Smax=5*0.2; % Maximum speed an agent can travel at. 
 
 Time = 1000; % Simulation time
-dt = 0.05; % Integration time
+dt = 0.04; % Integration time
 n_iter = floor(Time/dt); 
 tau = 0.2; % Relaxation time for speed
 theta_tau = 0.5; % Relaxation time for angular speed

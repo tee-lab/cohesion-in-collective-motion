@@ -43,7 +43,7 @@ d_t = vel; % Desired heading direction
 s_d = zeros(n,1); % Desired chanege in speed
 theta_d = theta; % Desired heading angle 
 
-sk_t = ceil(0.1/dt); % Store data after sk_t time steps
+sk_t = ceil(0.1/dt); % Store data after sk_t time steps. We store data at apprx 0.1 s.
 
 % position, velocity, speed and direction at time t-1
 
