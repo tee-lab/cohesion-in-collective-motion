@@ -8,8 +8,7 @@ tic;
 
 load('n_pw.mat'); % Load the file that has all the simulation data
 
-n_iter = round((Time - st_t)/0.1); % No.of data points in a simulation after removing data till st_t
-srt_p = st_t/0.1;
+srt_p = ceil(st_t/(ceil(0.1/dt) * dt)); % Considering datas after st_t time
 epsilon = 2.5;
 
 no_K = numel(K); % Length of K values explored
@@ -18,6 +17,7 @@ no_K = numel(K); % Length of K values explored
 theta_t = theta_t(:,srt_p+1:end,:,:);
 pos_t = pos_t(:,:,srt_p+1:end,:,:);
 
+n_iter = size(theta_t,2); % No.of data points in a simulation after removing data till st_t
 %% Cluster Analysis
 
 num_clus = zeros(n_iter, no_it, no_K); % Stores no.of clusters

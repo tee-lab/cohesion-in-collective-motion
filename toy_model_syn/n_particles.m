@@ -38,7 +38,7 @@ vel = [v0*cos(theta), v0*sin(theta)];
 d_t = vel; % Desired heading direction 
 theta_d = theta; % Desired heading angle 
 
-sk_t = ceil(0.1/dt); % Store data after sk_t time steps
+sk_t = ceil(0.1/dt); % Store data after sk_t time steps with apprx every 0.1s
 
 % position, velocity, speed and direction at time t-1
 
