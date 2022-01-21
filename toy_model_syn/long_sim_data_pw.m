@@ -20,10 +20,10 @@ latr = 1;
 gamma = 3;
 
 Time = 1000; % Simulation time
-dt = 0.07; % Integration time
+dt = 0.05; % Integration time
 n_iter = floor(Time/dt); 
 theta_tau = 0.5; % Relaxation time for angular speed
-st_t = 50; % Starting time to ignore to remove the effect of initial conditions
+st_t = 10; % Starting time to ignore to remove the effect of initial conditions
 
 
 for i = 1:no_K
