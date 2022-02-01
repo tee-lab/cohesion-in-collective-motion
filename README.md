@@ -40,11 +40,11 @@ Similar to as explained above, to see the collective motion of agents for averag
 
 ## Minimal model
 
-To simulate the minimal described in Appendix B use the codes in folder `toy_model_syn`. Use Matlab code `/figures/long_sim_data_at.m` to generate positions, velocities and networks to analyse group cohesion in minimal model. Positions, velocities of agents are stored in the `.mat` file named `n_pw.mat`.
+To simulate the minimal described in Appendix B use the codes in folder `toy_model_syn`. Use Matlab code `/toy_model_syn/long_sim_data_at.m` to generate positions, velocities and networks to analyse group cohesion in minimal model with pairwise interaction. Positions, velocities of agents are stored in the `.mat` file named `n_pw.mat`.
 
 Similar to above sections, variables are commented within the code, and it is advised to run for at least T = 3500 and the number of realisations (no_it) = 15 to reproduce the results.
 
-Use data in `n_pw.mat` to calculate the cohesion parameter, average number of clusters and group polarisation for minimal model with pairwise interaction. To get these measures run the Matlab code `/figures/clus_ana_at.m`. This file stores all the required data in the `cluster_ana_pw.mat` file.
+Use data in `n_pw.mat` to calculate the cohesion parameter, average number of clusters and group polarisation for minimal model with pairwise interaction. To get these measures run the Matlab code `/toy_model_syn/clus_ana_at.m`. This file stores all the required data in the `cluster_ana_pw.mat` file.
 
 ### Simulation video
 
