@@ -5,7 +5,7 @@ close all;
 tic;
 
 % Load data
-load('n_pw.mat', 'pos_t', 'theta_t', 'vel_t', 'rad_rep', 'zor', 'dt', 'n');
+load('n_at.mat', 'pos_t', 'theta_t', 'vel_t', 'rad_rep', 'zor', 'dt', 'n');
 l = 1; % iteration 
 m = 1; % K
 st_time = 500; % start time
@@ -28,12 +28,12 @@ theta_t = theta_t(:,st_time:end_time);
 
 run_time = length(vel_t);
 
-mo = VideoWriter('n_30_at_k', 'MPEG-4');
+mo = VideoWriter('n_30_at_5', 'MPEG-4');
 mo.FrameRate = 10;
 mo.Quality = 100;
 open(mo);
 
-for i = 1:50:run_time
+for i = 1:20:run_time
     vel_x = cos(theta_t(:,i));
     vel_y = sin(theta_t(:,i));
     pos_x = pos_t(:,1,i);
@@ -51,13 +51,24 @@ for i = 1:50:run_time
     axis('equal');
     axis([min(min(pos_t(:,1,:)))-zor, max(max(pos_t(:, 1, :)))+zor,...
         min(min(pos_t(:,2,:)))-zor, max(max(pos_t(:,2,:)))+zor])
-    drawnow('limitrate');            
+    drawnow('limitrate');
 
-    image = getframe(figure(1));
-    writeVideo(mo, image);
+    fname = ['img' num2str(i)]; % full name of image
+    imgname = strcat(fname, '.jpg');
+    ax = gca;
+    exportgraphics(ax, imgname, 'Resolution', 300)
+%     print('-djpeg','-r300',fname)     % save image with '-r200' resolution
+    I = imread([fname '.jpg']);       % read saved image
+    frame = im2frame(I);              
+
+%     image = getframe(figure(1));
+    size(frame.cdata);
+    writeVideo(mo, frame);
 
 end
 
 close(mo)
+
+delete *.jpg
 
 toc

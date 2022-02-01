@@ -24,7 +24,7 @@ attr_c = 3*1e-2;
 gamma = 3; latr=zor/2; 
 Smax=5*0.2; % Maximum speed an agent can travel at. 
 
-Time = 500; % Simulation time
+Time = 1500; % Simulation time
 dt = 0.05; % Integration time
 n_iter = floor(Time/dt); 
 tau = 0.2; % Relaxation time for speed

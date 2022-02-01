@@ -7,7 +7,7 @@ clc
 tic;
 
 n = 10; % NUMBER OF FISH
-K = [4]; % Values of K to be explored
+K = [2 4]; % Values of K to be explored
 no_K = numel(K);
 no_it = 2; % No.of realisations
 
@@ -19,7 +19,7 @@ sight = 360; % Visual angle in degrees
 latr = 1;
 gamma = 3;
 
-Time = 1000; % Simulation time
+Time = 1500; % Simulation time
 dt = 0.05; % Integration time
 n_iter = floor(Time/dt); 
 theta_tau = 0.5; % Relaxation time for angular speed
