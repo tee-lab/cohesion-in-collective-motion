@@ -18,7 +18,7 @@ Finally, run the code `plot_fig_2_3.m` to get figures 2A, B (and inset) of the m
 
 ### Simulation video
 
-To see the collective motion of agents, run the code `simulate.m` in the folder `figures`. Make sure that you load `n_pw.mat` in `line 8`. Variables are defined within the code and can be changed accordingly.
+To see the collective motion of agents, run the code `simulate.m` in the folder `figures`. Make sure that you load `n_pw.mat`. Variables are defined within the code and can be changed accordingly.
 
 ## Codes for Figure 4
 
@@ -36,7 +36,7 @@ Finally, run the code `plot_fig_4.m` to get figure 4 of the main text.
 
 ### Simulation video
 
-Similar to as explained above, to see the collective motion of agents for averaging type model, run the code `simulate.m` in the folder `figures`. Make sure that you load `n_at.mat` in `line 8`. Variables are defined within the code and can be changed accordingly.
+Similar to as explained above, to see the collective motion of agents for averaging type model, run the code `simulate.m` in the folder `figures`. Make sure that you load `n_at.mat`. Variables are defined within the code and can be changed accordingly.
 
 ## Minimal model
 
@@ -50,4 +50,4 @@ Finally, run the code `plot_coh_para.m` to get cohesion parameter as a function 
 
 ### Simulation video
 
-To see the collective motion of agents for minimal model, run the code `simulate.m` in the folder `toy_model_syn`. Make sure that you load `n_pw.mat` in `line 8`. Variables are defined within the code and can be changed accordingly.
+To see the collective motion of agents for minimal model, run the code `simulate.m` in the folder `toy_model_syn`. Make sure that you load `n_pw.mat`. Variables are defined within the code and can be changed accordingly.
