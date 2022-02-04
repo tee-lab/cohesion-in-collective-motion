@@ -17,7 +17,7 @@ theta = 2*pi*rand(1) + pi*randn(n,1); % Distribution of heading angles around a
 
 % Checking if all the heading angles are between [0-2pi] 
 for j=1:n
-    if theta(j)>2*pi
+    if theta(j)>=2*pi
         theta(j)=theta(j)-2*pi;
     elseif theta(j)<0
         theta(j)=2*pi+theta(j);

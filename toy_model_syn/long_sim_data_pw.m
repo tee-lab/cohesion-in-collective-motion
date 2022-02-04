@@ -20,7 +20,7 @@ latr = 1;
 gamma = 3;
 
 Time = 1500; % Simulation time
-dt = 0.05; % Integration time
+dt = 0.05; % Integration time. Take dt such that T/dt is an interger because of approximations.
 n_iter = floor(Time/dt); 
 theta_tau = 0.5; % Relaxation time for angular speed
 st_t = 10; % Starting time to ignore to remove the effect of initial conditions
