@@ -28,7 +28,7 @@ Use Matlab code `/figures/long_sim_data_at.m` to generate all the required data 
 
 Similar to codes for figure 2, variables are commented within the code, and it is advised to run for at least T = 3500 and the number of realisations (no_it) = 15 to reproduce the results.
 
-After saving the required data, use the data in `n_at.mat` to calculate the cohesion parameter, average number of clusters and group polarisation for averaging type interaction. To get these measures run the Matlab code `/figures/clus_ana_at.m`. This file stores all the required data in the `cluster_ana_at.mat` file. 	
+After saving the required data, use the data in `n_at.mat` to calculate the cohesion parameter, average number of clusters and group polarisation for averaging type interaction. To get these measures run the Matlab code `/figures/clus_ana_at.m`. This file stores all the required data in the `cluster_ana_at.mat` file. Similarly, run `/figures/alt_clus_ana.m` to calculate `expanse`, an alternate measure of group cohesion.   	
 
 Finally, run the code `plot_fig_4.m` to get figure 4 of the main text.
 
@@ -44,7 +44,9 @@ To simulate the minimal described in Appendix B use the codes in folder `toy_mod
 
 Similar to above sections, variables are commented within the code, and it is advised to run for at least T = 3500 and the number of realisations (no_it) = 15 to reproduce the results.
 
-Use data in `n_pw.mat` to calculate the cohesion parameter, average number of clusters and group polarisation for minimal model with pairwise interaction. To get these measures run the Matlab code `/toy_model_syn/clus_ana_pw.m`. This file stores all the required data in the `cluster_ana_pw.mat` file.
+Use data in `n_pw.mat` to calculate the cohesion parameter, average number of clusters and group polarisation for minimal model with pairwise interaction. To get these measures run the Matlab code `/toy_model_syn/clus_ana_pw.m`. This file stores all the required data in the `cluster_ana_pw.mat` file. Similarly, run `/toy_model_syn/alt_clus_ana.m` to calculate `expanse`, an alternate measure of group cohesion for minimal model with pairwise interaction.
+
+Finally, run the code `plot_coh_para.m` to get cohesion parameter as a function of K.
 
 ### Simulation video
 
