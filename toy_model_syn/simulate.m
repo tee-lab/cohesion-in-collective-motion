@@ -28,9 +28,10 @@ for i = 1:40:run_time
     vel_y = sin(theta_t(:,i));
     pos_x = pos_t(:,1,i);
     pos_y = pos_t(:,2,i);
-    quiver(pos_x, pos_y, vel_x, vel_y,0.5);
+    quiver(pos_x, pos_y, -vel_x, -vel_y, 0.3, 'LineWidth', 2.5, 'ShowArrowHead','off',...
+        'Color', '#B0E0E6');
     hold all
-    viscircles([pos_x, pos_y], 0.2*ones(n,1));
+    plot(pos_x, pos_y, '.', 'Color', '#00A693', 'MarkerSize', 25);
     hold off
     
     axis('equal');
