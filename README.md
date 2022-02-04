@@ -46,7 +46,7 @@ Similar to above sections, variables are commented within the code, and it is ad
 
 Use data in `n_pw.mat` to calculate the cohesion parameter, average number of clusters and group polarisation for minimal model with pairwise interaction. To get these measures run the Matlab code `/toy_model_syn/clus_ana_pw.m`. This file stores all the required data in the `cluster_ana_pw.mat` file. Similarly, run `/toy_model_syn/alt_clus_ana.m` to calculate `expanse`, an alternate measure of group cohesion for minimal model with pairwise interaction.
 
-Finally, run the code `plot_coh_para.m` to get cohesion parameter as a function of K.
+Finally, run the code `plot_coh_para.m` to get cohesion parameter (C) as a function of K.
 
 ### Simulation video
 
