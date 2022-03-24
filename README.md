@@ -1,5 +1,7 @@
 # Cohesion in collective motion
 
+Codes for Jadhav V, Guttal V, Masila DR. 2022 Randomness in the choice of neighbours promotes cohesion in mobile animal groups. R. Soc. Open Sci. 9: 220124, doi: [https://doi.org/10.1098/rsos.220124](https://doi.org/10.1098/rsos.220124)
+
 This repository contains codes to generate data used for analysis in the article, “Randomness in the choice of neighbours promotes cohesion in mobile animal groups”. The codes are tested to run on Matlab version R2018b and newer versions.
 
 ## Codes for Figures 2 and 3
