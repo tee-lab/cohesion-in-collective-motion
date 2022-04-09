@@ -1,6 +1,7 @@
 # Cohesion in collective motion
 
-Codes for Jadhav V, Guttal V, Masila DR. 2022 Randomness in the choice of neighbours promotes cohesion in mobile animal groups. R. Soc. Open Sci. 9: 220124, doi: [https://doi.org/10.1098/rsos.220124](https://doi.org/10.1098/rsos.220124)
+## Citation
+Jadhav V, Guttal V, Masila DR. 2022 Randomness in the choice of neighbours promotes cohesion in mobile animal groups. R. Soc. Open Sci. 9: 220124, doi: [https://doi.org/10.1098/rsos.220124](https://doi.org/10.1098/rsos.220124)
 
 This repository contains codes to generate data used for analysis in the article, “Randomness in the choice of neighbours promotes cohesion in mobile animal groups”. The codes are tested to run on Matlab version R2018b and newer versions.
 
@@ -53,3 +54,9 @@ Finally, run the code `plot_coh_para.m` to get cohesion parameter (C) as a funct
 ### Simulation video
 
 To see the collective motion of agents for minimal model, run the code `simulate.m` in the folder `toy_model_syn`. Make sure that you load `n_pw.mat`. Variables are defined within the code and can be changed accordingly.
+
+## Citation
+If you our codes, please cite the following paper: 
+
+Jadhav V, Guttal V, Masila DR. 2022 Randomness in the choice of neighbours promotes cohesion in mobile animal groups. R. Soc. Open Sci. 9: 220124, doi: [https://doi.org/10.1098/rsos.220124](https://doi.org/10.1098/rsos.220124)
+
