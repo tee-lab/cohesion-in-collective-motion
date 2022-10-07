@@ -213,7 +213,7 @@ for t = 2:n_iter
             neighbours_atr = n_array_atr(s_ind_atr(1:K_atr_st));
             
             if isempty(n_array_atr)==0 
-                %Picking a random neighbor to align
+                %Picking a random neighbor to attract
                 neighbours_katr = neighbours_atr(randperm(K_atr_st, min(k_atr, K_atr_st)));
                 % Desired change in speed due to attraction interaction
                 s_d_attr = min(attr_c * (mean(((mag_vec(neighbours_katr,1) - 2 *rad_rep)/latr).^gamma,1)), vmax-v0);
